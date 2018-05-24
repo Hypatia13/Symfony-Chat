@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Public chat</h1>
+    <h1>Symfony Chat App</h1>
     <ul id="messages-list"></ul>
 
 <br>
@@ -25,24 +25,23 @@
     
     // Socket chat configuration
     /**
-     * According to the configuration in Sockets/Chat.php , change the port if you need to.
      * @type WebSocket
      */
 
-    var conn = new WebSocket('ws://sandbox:8080/');
+    var socket = new WebSocket('ws://localhost:8080/');
 
-    conn.onopen = function(e) {
+    socket.onopen = function(e) {
         console.info("Connection status OK!");
     };
 
-    conn.onmessage = function(e) {
+    socket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         ChatController.addMessage(data.username, data.message);
         
         console.log(data);
     };
     
-    conn.onerror = function(e){
+    socket.onerror = function(e){
         alert("Something is wrong with your connection.");
         console.error(e);
     };
@@ -58,7 +57,6 @@
         }
         
         Chat.sendMessage(msg);
-        // Empty text area
         document.getElementById("form-message").value = "";
     }, false);
     
@@ -68,7 +66,7 @@
             var from;
             
             if(username == userInfo.username){
-                from = "me";
+                from = "Me";
             }else{
                 from = userInfo.username;
             }
@@ -80,7 +78,7 @@
         },
         sendMessage: function(text){
             userInfo.message = text;
-            conn.send(JSON.stringify(userInfo));
+            socket.send(JSON.stringify(userInfo));
             this.addMessage(userInfo.username, userInfo.message);
         }
     };
