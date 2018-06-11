@@ -15,7 +15,7 @@
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/orm-pack": "*",
+        "symfony/orm-pack": "^1.0",
         "symfony/process": "^4.0",
         "symfony/security-bundle": "^4.0",
         "symfony/serializer-pack": "*",
@@ -24,7 +24,8 @@
         "symfony/validator": "^4.0",
         "symfony/web-link": "^4.0",
         "symfony/webpack-encore-pack": "*",
-        "symfony/yaml": "^4.0"
+        "symfony/yaml": "^4.0",
+        "vich/uploader-bundle": "^1.8"
     },
     "require-dev": {
         "sensiolabs/security-checker": "^4.1",
