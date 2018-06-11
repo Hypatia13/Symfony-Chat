@@ -9,16 +9,19 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
-    
-                            
+                 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             pattern:    ^/
-            http_basic: ~
+           # http_basic: ~
             provider: our_db_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
 
             # activate different ways to authenticate
 
@@ -30,6 +33,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+       # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

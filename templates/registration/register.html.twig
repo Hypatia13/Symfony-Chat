@@ -1,4 +1,11 @@
 {# templates/registration/register.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Register!{% endblock %}
+
+{% block body %}
+
+    <h1>Hello Register!</h1>
 
 {{ form_start(form) }}
     {{ form_row(form.username) }}
@@ -8,3 +15,5 @@
 
     <button type="submit">Register!</button>
 {{ form_end(form) }}
+
+{% endblock %}

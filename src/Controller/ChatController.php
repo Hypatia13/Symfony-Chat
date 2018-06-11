@@ -43,7 +43,7 @@ class ChatController extends Controller implements MessageComponentInterface {
     }
 
     /**
-     * @Route("/", name="index")
+     * @Route("/chat", name="chat")
      */
     public function index()
     {

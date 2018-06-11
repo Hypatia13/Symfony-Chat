@@ -8,15 +8,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Table(name="chat_users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
-* @UniqueEntity(fields="email", message="Email already taken")
+ * @ORM\Table(name="chat_users")
+ * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
 class User implements UserInterface, \Serializable
 {
     /**
-     * @var int 
      * 
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -25,7 +24,6 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @var string
      * 
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank()
@@ -33,7 +31,6 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
-     * @var string
      * 
      * @ORM\Column(type="string", length=254, unique=true)
      * @Assert\NotBlank()
@@ -42,7 +39,6 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @var string
      * 
      * @ORM\Column(type="string", length=64)
      */
@@ -55,7 +51,6 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @var array
      *
      * @ORM\Column(type="json")
      */
@@ -73,7 +68,7 @@ class User implements UserInterface, \Serializable
         // $this->salt = md5(uniqid('', true));
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -83,17 +78,17 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(string $username)
     {
         $this->username = $username;
     }
 
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -110,7 +105,7 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
-    public function setPassword(string $password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -124,8 +119,8 @@ class User implements UserInterface, \Serializable
     {
         $this->plainPassword = $password;
     }
-    
-    public function getRoles(): array
+
+    public function getRoles()
     {
         $roles = $this->roles;
 
@@ -137,7 +132,7 @@ class User implements UserInterface, \Serializable
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): void
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
