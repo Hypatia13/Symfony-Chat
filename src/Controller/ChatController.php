@@ -15,7 +15,7 @@ class ChatController extends Controller implements MessageComponentInterface {
     }
 
     public function onOpen(ConnectionInterface $socket) {
-        // Attach new socketection
+        // Attach new connection
         $this->users->attach($socket);
         echo "New user! ({$socket->resourceId})\n";
     }

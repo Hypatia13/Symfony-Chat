@@ -3,12 +3,12 @@
 {% block title %}Symfony Chat{% endblock %}
 
 {% block stylesheets %}
+{{ parent() }}
         {# <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> #}
     {% endblock %}
 {% block body %}
 <section class="jumbotron text-center">
-    <div class="example-wrapper">
-        <h1>Symfony Chat App</h1>
+    <div class="container">
         <div class="row">
             <ul id="messages-list" class="col-lg-12 col-md-12 col-sm-12 rounded message-list"></ul>
         </div>
@@ -25,6 +25,7 @@
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
     <script src="{{ asset('js/chat.js') }}"></script>
 {% endblock %}
 
