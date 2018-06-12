@@ -1,4 +1,4 @@
-# Symphony-Chat
+# Symfony-Chat
 
 ## Project References:
 
