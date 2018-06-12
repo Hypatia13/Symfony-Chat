@@ -3,12 +3,25 @@ security:
     encoders:
         App\Entity\User:
             algorithm: bcrypt
+        Symfony\Component\Security\Core\User\User: plaintext
     
     providers:
+        chain_provider:
+                chain:
+                    providers: [in_memory, our_db_provider]
         our_db_provider:
             entity:
                 class: App\Entity\User
                 property: username
+        in_memory:
+            memory:
+                users:
+                    max:
+                        password: max
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: admin
+                        roles: 'ROLE_ADMIN'
                  
     firewalls:
         dev:
@@ -17,7 +30,7 @@ security:
         main:
             pattern:    ^/
            # http_basic: ~
-            provider: our_db_provider
+            provider: chain_provider
             anonymous: ~
             form_login:
                 login_path: login
@@ -35,5 +48,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     
     access_control:
-       # - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/chat, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

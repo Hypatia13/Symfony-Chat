@@ -1,87 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Symfony Chat{% endblock %}
 
+{% block stylesheets %}
+        {# <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> #}
+    {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Symfony Chat App</h1>
-    <ul id="messages-list"></ul>
-
-<br>
-<textarea id="message-area" placeholder="Type it here!"></textarea>
-<input type="button" id="submit-form" value="Send it!"/>
-</div>
+<section class="jumbotron text-center">
+    <div class="example-wrapper">
+        <h1>Symfony Chat App</h1>
+        <div class="row">
+            <ul id="messages-list" class="col-lg-12 col-md-12 col-sm-12 rounded message-list"></ul>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <textarea id="message-area" class="form-control" rows="3" placeholder="Type your message"></textarea>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <input type="button" id="submit-form" value="Send" class="btn btn-lg btn-block btn-outline-primary"/>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block javascripts %}
-        var userInfo = {
-        username: new Date().getTime().toString()
-    };
-    
-    // Socket chat configuration
-    /**
-     * @type WebSocket
-     */
-
-    var socket = new WebSocket('ws://localhost:8080/');
-
-    socket.onopen = function(e) {
-        console.info("Connection status OK!");
-    };
-
-    socket.onmessage = function(e) {
-        var data = JSON.parse(e.data);
-        ChatController.addMessage(data.username, data.message);
-        
-        console.log(data);
-    };
-    
-    socket.onerror = function(e){
-        alert("Something is wrong with your connection.");
-        console.error(e);
-    };
-    // Socket chat config end
-   
-    
-    /// Adding messages to the list element
-    document.getElementById("submit-form").addEventListener("click",function(){
-        var msg = document.getElementById("message-area").value;
-        
-        if(!msg){
-            alert("You haven't written anything yet!");
-        }
-        
-        Chat.sendMessage(msg);
-        document.getElementById("form-message").value = "";
-    }, false);
-    
-    // Send the message and add it to a list.
-    var ChatController = {
-        addMessage: function(username,message){
-            var from;
-            
-            if(username == userInfo.username){
-                from = "Me";
-            }else{
-                from = userInfo.username;
-            }
-            
-            var ul = document.getElementById("messages-list");
-            var li = document.createElement("li");
-            li.appendChild(document.createTextNode(from + " : "+ message));
-            ul.appendChild(li);
-        },
-        sendMessage: function(text){
-            userInfo.message = text;
-            socket.send(JSON.stringify(userInfo));
-            this.addMessage(userInfo.username, userInfo.message);
-        }
-    };
-
+    <script src="{{ asset('js/chat.js') }}"></script>
 {% endblock %}
 
