@@ -1,31 +1,34 @@
 {# templates/security/login.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Login!{% endblock %}
-
 {% block body %}
+<div class="text-center">
 
-    <h1>Hello Login!</h1>
+    <h2>Login here</h1>
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-<form action="{{ path('login') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+    <form action="{{ path('login') }}" method="post">
+      <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        </div>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+        </div>
+        {#
+            If you want to control the URL the user
+            is redirected to on success (more details below)
+            <input type="hidden" name="_target_path" value="/account" />
+        #}
+        <input type="hidden" name="_target_path" value="/chat" />
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
-
-    <button type="submit">login</button>
-</form>
-
+        <button type="submit" class="btn btn-primary">login</button>
+    </form>
+</div>
 
 {% endblock %}
