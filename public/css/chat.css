@@ -4,9 +4,12 @@
     margin-bottom: 30px;
 }
 
-.message-list div {
+.message-list ul {
     text-align: left;
     margin-bottom: 5px;
     padding: 10px;
 }
 
+#main {
+    background-color: #e9ecef;
+}
