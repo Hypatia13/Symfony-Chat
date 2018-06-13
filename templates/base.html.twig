@@ -18,7 +18,7 @@
                     <div class="container d-flex justify-content-between">
                         <div class="navbar-header col-md-3 col-lg-2">
                             <a class="navbar-brand" href="{{ path('chat') }}">
-                                Symfony Demo
+                                Symfony Chat Application
                             </a>
                         </div>
                         <div class="navbar-collapse collapse">
@@ -28,17 +28,25 @@
 
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <li>
-                                            <a href="{{ path('admin_post_index') }}">
-                                                <i class="fa fa-lock" aria-hidden="true"></i> {{ 'menu.admin'|trans }}
+                                            <a href="{{ path('admin') }}">
+                                                <i class="fa fa-lock" aria-hidden="true"></i> Admin Control Panel
                                             </a>
                                         </li>
                                     {% endif %}
                                 {% endblock %}
 
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    <li>Username: {{ app.user.username }}</li>
+                                   {% else %}
+                                   <li>
+                                    <a href="{{ path('register') }}">Register here</a>
+                                    </li>
+                                {% endif %}
+
                                 {% if app.user %}
                                     {# <li>
                                         <a href="{{ path('security_logout') }}">
-                                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'}}
                                         </a>
                                     </li> #}
                                 {% endif %}

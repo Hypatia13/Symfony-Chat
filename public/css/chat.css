@@ -1,13 +1,14 @@
-.message-list {
+.messages-list {
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 30px;
 }
 
-.message-list ul {
+.messages-list ul {
     text-align: left;
     margin-bottom: 5px;
     padding: 10px;
+    background-color: blueviolet;
 }
 
 #main {
