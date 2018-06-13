@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Controller\ChatController;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,17 +15,16 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 
-use App\Controller\ChatController;
 
 
-class ChatCommand extends Command
+class ChatStartCommand extends Command
 {
-    protected static $defaultName = 'ChatCommand';
+    protected static $defaultName = 'chat:start';
 
     protected function configure()
     {
         $this
-            ->setDescription('Starts the chat socket')
+            ->setDescription('Starts the websocket chat')
             ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
             ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
@@ -43,16 +43,15 @@ class ChatCommand extends Command
             // ...
         }
 
-        $io->success('ChatCommand loaded successfully!');
+        $io->success('Chat has started successfully');
 
-        $server = IoServer::factory(
-            new HttpServer(
-                new WsServer(
-                    new ChatController()
-                )
-            ),
-            8080
-        );
+        $output->writeln([
+            'Websocket chat',
+            '============',
+            'Starting chat, open your browser.',
+        ]);
+
+        $server = IoServer::factory(new HttpServer(new WsServer(new ChatController())),8080);
         
         $server->run();
     }

@@ -1,43 +1,49 @@
 var userInfo = {
     username: new Date().getTime().toString()
 };
+/* var form = document.getElementById('submit-form');
+var messageArea = document.getElementById("form-message");
+var messagesList = document.getElementById('messages-list');
+ */
 
 // Socket chat configuration
 /**
  * @type WebSocket
  */
 
-var socket = new WebSocket('ws://localhost:8080/');
+var socket = new WebSocket("ws://127.0.0.1:8080");
 
-socket.onopen = function(e) {
+socket.onopen = function(event) {
     console.info("Connection status OK!");
 };
 
-socket.onmessage = function(e) {
-    var data = JSON.parse(e.data);
+socket.onmessage = function(event) {
+    var data = JSON.parse(event.data);
     ChatController.addMessage(data.username, data.message);
     
     console.log(data);
 };
 
-socket.onerror = function(e){
+socket.onerror = function(error){
     alert("Something is wrong with your connection.");
-    console.error(e);
+    console.error(error);
 };
 // Socket chat config end
 
 
 /// Adding messages to the list element
-document.getElementById("submit-form").addEventListener("click",function(){
-    var msg = document.getElementById("message-area").value;
+document.getElementById("form-submit").addEventListener("click",function(){
+    var msg = document.getElementById("form-message").value;
     
     if(!msg){
         alert("You haven't written anything yet!");
     }
     
-    Chat.sendMessage(msg);
+    ChatController.sendMessage(msg);
+    // Clear out the text field.
     document.getElementById("form-message").value = "";
 }, false);
+
 
 // Send the message and add it to a list.
 var ChatController = {
