@@ -35,6 +35,8 @@ https://symfony.com/doc/current/console.html
 
 http://docopt.org
 
+https://blog.mgechev.com/2015/02/06/parsing-binary-protocol-data-javascript-typedarrays-blobs/
+
 https://symfony.com/doc/current/bundles/EasyAdminBundle/index.html
 
 https://symfony.com/doc/current/bundles/EasyAdminBundle/integration/vichuploaderbundle.html
