@@ -16,12 +16,15 @@ security:
         in_memory:
             memory:
                 users:
-                    max:
-                        password: max
-                        roles: 'ROLE_USER'
                     admin:
                         password: admin
-                        roles: 'ROLE_ADMIN'
+                        roles: 'ROLE_ADMIN' 
+                        #security:encode-password doesn't work, need to add moderator role first
+        
+        role_hierarchy:
+            ROLE_MODERATOR: ROLE_USER
+            ROLE_ADMIN: ROLE_MODERATOR
+
                  
     firewalls:
         dev:
@@ -49,5 +52,4 @@ security:
     
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/, roles: ROLE_USER }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/, roles: ROLE_USER }
