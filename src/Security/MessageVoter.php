@@ -16,7 +16,7 @@ class MessageVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        // if the attribute isn't one we support, return false
+        // if the attribute isn't supported, return false
         if (!in_array($attribute, array(self::EDIT, self::DELETE))) {
             return false;
         }
@@ -34,11 +34,11 @@ class MessageVoter extends Voter
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
+            // deny access, if not logged in
             return false;
         }
 
-        // you know $subject is a Message object, thanks to supports
+        // $subject is a Message object
         /** @var Message $message */
         $message = $subject;
 
@@ -52,22 +52,22 @@ class MessageVoter extends Voter
         throw new \LogicException('This code should not be reached!');
     }
 
-    private function canView(Message $message, User $user)
-    {
-        // if they can edit, they can view
-        if ($this->canEdit($message, $user)) {
-            return true;
-        }
-
-        // the Message object could have, for example, a method isPrivate()
-        // that checks a boolean $private property
-        return !$message->isPrivate();
-    }
-
     private function canEdit(Message $message, User $user)
     {
-        // this assumes that the data object has a getOwner() method
-        // to get the entity of the user who owns this data object
-        return $user === $message->getOwner();
+        // if they can delete, they can edit
+        if ($this->canDelete($message, $user)) {
+            return true;
+        }
+    }
+
+    private function canDelete(Message $message, User $user)
+    {
+        // Checks whether the user has Admin or Moderator rights
+        
+        //if (has_role('ROLE_ADMIN') || has_role('ROLE_MODERATOR')) {
+        if ($user->getRoles([$isModerator ? 'ROLE_MODERATOR' : 'ROLE_USER']) {
+        return true;
     }
 }
+
+        
