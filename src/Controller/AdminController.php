@@ -17,3 +17,5 @@ class AdminController extends Controller
         ]);
     }
 }
+
+// Admin back-end functionality (dashboard for user/message editing) is implemented by EasyAdmin Bundle
