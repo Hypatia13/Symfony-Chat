@@ -52,9 +52,9 @@ class User implements UserInterface, \Serializable
 
     /**
      *
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @ORM\Column(type="boolean")
@@ -162,6 +162,8 @@ class User implements UserInterface, \Serializable
             // $this->salt
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
+
+    //Do more research about properly assigning roles
 
     public function getIsModerator(): ?bool
     {
