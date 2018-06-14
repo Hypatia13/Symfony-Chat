@@ -4,3 +4,4 @@ easy_admin:
 #        - App\Entity\Product
         - App\Entity\Message
         - App\Entity\User
+    site_name: 'Symfony Chat Dashboard'
