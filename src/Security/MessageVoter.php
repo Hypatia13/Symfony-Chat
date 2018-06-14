@@ -5,6 +5,7 @@ use App\Entity\Message;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 
 // Grant or deny permissions for actions related to messages (edit/delete)
 
@@ -13,6 +14,12 @@ class MessageVoter extends Voter
     const EDIT = 'edit';
     const DELETE = 'delete';
 
+    private $decisionManager;
+
+    public function __construct(AccessDecisionManagerInterface $decisionManager)
+    {
+        $this->decisionManager = $decisionManager;
+    }
 
     protected function supports($attribute, $subject)
     {
@@ -63,11 +70,8 @@ class MessageVoter extends Voter
     private function canDelete(Message $message, User $user)
     {
         // Checks whether the user has Admin or Moderator rights
-        
-        //if (has_role('ROLE_ADMIN') || has_role('ROLE_MODERATOR')) {
-        if ($user->getRoles([$isModerator ? 'ROLE_MODERATOR' : 'ROLE_USER']) {
-        return true;
+    if ($this->decisionManager->decide($token, array('ROLE_ADMIN')) || $this->decisionManager->decide($token, array('ROLE_MODERATOR'))) {
+            return true;
+        }
     }
 }
-
-        
