@@ -57,16 +57,14 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    private $isModerator;
 
-    public function __construct()
-    {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid('', true));
-    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
 
     public function getId()
     {
@@ -163,5 +161,29 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getIsModerator(): ?bool
+    {
+        return $this->isModerator;
+    }
+
+    public function setIsModerator(bool $isModerator): self
+    {
+        $this->isModerator = $isModerator;
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
+
+        return $this;
     }
 }
